@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 
 import NewsItem from './NewsItem'
+import Spinner from './Spinner'
 
 export class News extends Component {
  
@@ -108,7 +109,7 @@ export class News extends Component {
       articles : this.articles,
       loading : false,
       page:1,
-      totalResult:this.articles.totalResults,
+      
       pageSize : 15
 
     }
@@ -122,12 +123,13 @@ export class News extends Component {
     let url = `https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=5e0e7f8cc1a244d9a702020734303215&page=${this.state.page}&pageSize=${this.state.pageSize}`
     let data = await fetch(url)
     let parsedData = await data.json()
-    this.setState({articles : parsedData.articles})
+    this.setState({articles : parsedData.articles,
+    totalResult:parsedData.totalResults})
     console.log(this.articles)
   }
 
   handleNextClick = async () => {
-    if(this.state.pageSize > Math.ceil(this.totalResult/this.page)){
+    if(this.state.page + 1 > Math.ceil(this.state.totalResult/this.state.pageSize)){
 
     }
         
@@ -162,7 +164,8 @@ export class News extends Component {
     return (
 
       <div className='container my-3'>
-        <h1 style={{textAlign:'center'}} className='my-3'>NewsMonk - Top Headlines</h1>
+        <h1 style={{textDecoration:'underline'}} className='text-center my-3'>NewsMonk - Top Headlines</h1>
+        <Spinner/>
       <div className='row'>
         {this.state.articles.map((e) => {
           return  <div className='col-md-4 my-3' key={e.url}>
@@ -176,7 +179,7 @@ export class News extends Component {
         <div className=' d-flex justify-content-between'>
           
         <button disabled={this.state.page <= 1 } onClick={this.handlePrevClick} type="button" class="btn btn-sm btn-dark"> &lt;&lt; Previous</button>
-        <button onClick={this.handleNextClick} type="button" class="btn btn-sm btn-dark ">Next &gt;&gt;</button>
+        <button disabled={this.state.page + 1 > Math.ceil(this.state.totalResult/this.state.pageSize)} onClick={this.handleNextClick} type="button" class="btn btn-sm btn-dark ">Next &gt;&gt;</button>
         </div>
        
       </div>
