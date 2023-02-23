@@ -3,21 +3,25 @@ import React, { Component } from 'react'
 
 export class NewsItem extends Component {
 
-  
+
 
   render() {
 
-    let {title , desc , imageURL ,newsURL} = this.props
+    let { title, desc, imageURL, newsURL, author, date,source } = this.props
     return (
       <div>
-        <div className="card" style={{width: "18rem"}}>
-  <img src={imageURL?imageURL:"https://assets3.cbsnewsstatic.com/hub/i/r/2023/01/25/5041d6ac-daa4-49e7-afc3-24e1fa2b1fb2/thumbnail/1200x630/cc1035a20c2c1d33d1a7f231bf5b12c6/netflix-gettyimages-1246478948.jpgs"} className="card-img-top" alt="..."/>
-  <div className="card-body">
-    <h5 className="card-title">{title}... </h5>
-    <p className="card-text">{desc}...</p>
-    <a href={newsURL} target="_blank" rel="noreferrer" className="btn btn-sm btn-primary">Read More</a>
-  </div>
-</div>
+        <div className="card" style={{ width: "18rem"}}>
+          <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style={{left:'90%' , zIndex:'1'}}>
+            {source}
+            <span class="visually-hidden">unread messages</span></span>
+          <img src={imageURL ? imageURL : "https://th.bing.com/th/id/OIP.fHJwQ0X0TjvEbdA8nvx_8QHaIm?pid=ImgDet&rs=1"} height="200px" width="200px" className="card-img-top" alt="..." />
+          <div className="card-body">
+            <h5 className="card-title">{title}... </h5>
+            <p className="card-text">{desc}...</p>
+            <p class="card-text"><small className="text-muted">By {!author ? "Unknown" : author} on {new Date(date).toGMTString()}</small></p>
+            <a href={newsURL} target="_blank" rel="noreferrer" className="btn btn-sm btn-primary">Read More</a>
+          </div>
+        </div>
       </div>
     )
   }

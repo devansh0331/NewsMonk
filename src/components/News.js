@@ -182,12 +182,12 @@ export class News extends Component {
     return (
 
       <div className='container my-3'>
-        <h1 style={{textDecoration:'underline'}} className='text-center my-3'>NewsMonk - {this.props.category.toUpperCase()}</h1>
+        <h1 style={{textDecoration:'underline'}} className='text-center my-3'>NewsMonk - {this.props.category.toUpperCase() }</h1>
         {this.state.loading && <Spinner/>}  
       <div className='row'>
         {!this.state.loading && this.state.articles.map((e) => {
           return  <div className='col-md-4 my-3' key={e.url}>
-            <NewsItem title={e.title?e.title.slice(0,40):""} desc={e.description?e.description.slice(0,80):""} imageURL={e.urlToImage} newsURL={e.url}/>
+            <NewsItem title={e.title?e.title.slice(0,40):""} source={e.source.name} desc={e.description?e.description.slice(0,80):""} imageURL={e.urlToImage} newsURL={e.url} author={e.author} date={e.publishedAt}/>
           
        
           </div>
